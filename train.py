@@ -27,14 +27,22 @@ def get_activation(name):
     return hook
 
 # 1. Parameter Tuning: Kaiming Initialization for Deep ReLU Networks
+# 1. Parameter Tuning: Split Initialization for Deep Networks
 def init_weights(m):
-    if isinstance(m, nn.Conv2d) or isinstance(m, nn.Linear):
+    """Applies Kaiming to Conv layers, but gentle Normal init to Linear layers."""
+    if isinstance(m, nn.Conv2d):
+        # Kaiming is perfect for Conv layers
         nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
         if m.bias is not None:
             nn.init.constant_(m.bias, 0)
     elif isinstance(m, nn.BatchNorm2d):
         nn.init.constant_(m.weight, 1)
         nn.init.constant_(m.bias, 0)
+    elif isinstance(m, nn.Linear):
+        # FIX: Gentle initialization for Linear layers to prevent logit explosion
+        nn.init.normal_(m.weight, 0, 0.01)
+        if m.bias is not None:
+            nn.init.constant_(m.bias, 0)
 
 # 2. Safe Augmentations (No aggressive cropping to protect bounding boxes)
 def get_dataloaders(root_dir: str, batch_size: int = 32):
@@ -78,7 +86,7 @@ def train_classifier(args, device, train_loader, val_loader):
     
     criterion = nn.CrossEntropyLoss()
     # Insert this line
-    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=5)
     best_f1 = 0.0
     epochs_no_improve = 0
@@ -151,7 +159,7 @@ def train_localization(args, device, train_loader, val_loader):
     criterion_mse = nn.MSELoss()
     criterion_iou = IoULoss(reduction="mean")
     # Insert this line
-    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=5)
     best_iou = 0.0
     epochs_no_improve = 0
@@ -220,7 +228,7 @@ def train_segmentation(args, device, train_loader, val_loader):
     
     criterion = nn.CrossEntropyLoss()
     # Insert this line
-    optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=0.9, weight_decay=5e-4)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr, weight_decay=1e-4)
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=5)
 
     best_dice = 0.0
