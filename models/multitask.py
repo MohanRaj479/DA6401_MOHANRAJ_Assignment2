@@ -17,11 +17,11 @@ class MultiTaskPerceptionModel(nn.Module):
                  unet_path: str = "unet.pth"):
         """Initialize the shared backbone/heads using trained weights."""
         super().__init__()
-        
+        # https://drive.google.com/file/d/1cnKACObp9PCH-asj7TSXhELFVIy2usWm/view?usp=sharing
         import gdown
-        gdown.download(id="1NQU7m0YS5cPkGfm9J1sdOGGsjbkvU5C1", output=classifier_path, quiet=False)
-        gdown.download(id="1Iglso8WczzJGmbSuod8xivhraXFN5i-d", output=localizer_path, quiet=False)
-        gdown.download(id="1N-FHY7BwzBh4Vw1n4TRQzZPD0nBFRxeW", output=unet_path, quiet=False)
+        gdown.download(id="1cnKACObp9PCH-asj7TSXhELFVIy2usWm", output=classifier_path, quiet=False)
+        gdown.download(id="glso8WczJGbSod8xivhraXFN5d", output=localizer_path, quiet=False)
+        gdown.download(id="HY7BwBh4w1n4TRQzZPDnFRxe", output=unet_path, quiet=False)
         
         # Shared Encoder
         self.shared_encoder = VGG11Encoder(in_channels)
