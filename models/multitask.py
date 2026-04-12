@@ -17,9 +17,9 @@ class MultiTaskPerceptionModel(nn.Module):
                  unet_path: str = "unet.pth"):
         """Initialize the shared backbone/heads using trained weights."""
         super().__init__()
-        # https://drive.google.com/file/d/1cnKACObp9PCH-asj7TSXhELFVIy2usWm/view?usp=sharing
+        # https://drive.google.com/file/d/1UXkbokveS5F1vzgHH0yOvMNJ2dD3G3HQ/view?usp=sharing
         import gdown
-        gdown.download(id="1cnKACObp9PCH-asj7TSXhELFVIy2usWm", output=classifier_path, quiet=False)
+        gdown.download(id="1UXkbokveS5F1vzgHH0yOvMNJ2dD3G3HQ", output=classifier_path, quiet=False)
         gdown.download(id="glso8WczJGbSod8xivhraXFN5d", output=localizer_path, quiet=False)
         gdown.download(id="HY7BwBh4w1n4TRQzZPDnFRxe", output=unet_path, quiet=False)
         
