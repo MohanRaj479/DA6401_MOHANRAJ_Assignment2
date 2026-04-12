@@ -18,10 +18,12 @@ class MultiTaskPerceptionModel(nn.Module):
         """Initialize the shared backbone/heads using trained weights."""
         super().__init__()
         # https://drive.google.com/file/d/1UXkbokveS5F1vzgHH0yOvMNJ2dD3G3HQ/view?usp=sharing
+        # https://drive.google.com/file/d/1TD_rkVtpuRv4mRA3L7kyzpQRrVCNdGq8/view?usp=sharing
+        # https://drive.google.com/file/d/1Xend2wMSTsnZKqMp-Vber1plTSdbhUFp/view?usp=sharing
         import gdown
         gdown.download(id="1UXkbokveS5F1vzgHH0yOvMNJ2dD3G3HQ", output=classifier_path, quiet=False)
-        gdown.download(id="glso8WczJGbSod8xivhraXFN5d", output=localizer_path, quiet=False)
-        gdown.download(id="HY7BwBh4w1n4TRQzZPDnFRxe", output=unet_path, quiet=False)
+        gdown.download(id="1TD_rkVtpuRv4mRA3L7kyzpQRrVCNdGq8", output=localizer_path, quiet=False)
+        gdown.download(id="1Xend2wMSTsnZKqMp-Vber1plTSdbhUFp", output=unet_path, quiet=False)
         
         # Shared Encoder
         self.shared_encoder = VGG11Encoder(in_channels)
