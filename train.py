@@ -61,7 +61,6 @@ def cxcywh_to_voc(bboxes):
     return torch.stack([cx - (w / 2.0), cy - (h / 2.0), cx + (w / 2.0), cy + (h / 2.0)], dim=1)
 
 def draw_bboxes_wandb(images, pred_boxes, target_boxes, ious):
-    """Helper for Section 2.5: Log images with bounding boxes to W&B"""
     wandb_images = []
     mean = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1).to(images.device)
     std = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1).to(images.device)
@@ -80,9 +79,9 @@ def draw_bboxes_wandb(images, pred_boxes, target_boxes, ious):
         }))
     return wandb_images
 
-# === TASK 1: CLASSIFICATION ===
+#  CLASSIFICATION
 def train_classifier(args, device, train_loader, val_loader):
-    wandb.init(project="DA6401_Assignment II", name=f"classifier_bn_{args.use_bn}_drop_{args.dropout}", config=vars(args))
+    wandb.init(project="DA6401_Assignment II_update", name=f"classification_bn_{args.use_bn}_dropout_{args.dropout}", config=vars(args))
     model = VGG11Classifier(num_classes=37, dropout_p=args.dropout, use_bn=args.use_bn).to(device)
     model.apply(init_weights)
     
@@ -129,9 +128,9 @@ def train_classifier(args, device, train_loader, val_loader):
             if epochs_no_improve >= 15: break
     wandb.finish()
 
-# === TASK 2: LOCALIZATION ===
+# LOCALIZATION 
 def train_localization(args, device, train_loader, val_loader):
-    wandb.init(project="DA6401_Assignment II", name="task2_localization", config=vars(args))
+    wandb.init(project="DA6401_Assignment II", name="localization", config=vars(args))
     model = VGG11Localizer(in_channels=3).to(device)
     model.apply(init_weights) 
     
@@ -190,9 +189,9 @@ def train_localization(args, device, train_loader, val_loader):
             if epochs_no_improve >= 15: break
     wandb.finish()
 
-# === TASK 3: SEGMENTATION ===
+# SEGMENTATION
 def train_segmentation(args, device, train_loader, val_loader):
-    wandb.init(project="DA6401_Assignment II", name=f"task3_segmentation_{args.freeze_mode}", config=vars(args))
+    wandb.init(project="DA6401_Assignment II", name=f"segmentation_{args.freeze_mode}", config=vars(args))
     model = VGG11UNet(num_classes=3, in_channels=3, dropout_p=args.dropout).to(device)
     model.apply(init_weights)
 
