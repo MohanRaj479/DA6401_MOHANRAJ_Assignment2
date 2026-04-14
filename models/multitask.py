@@ -18,10 +18,12 @@ class MultiTaskPerceptionModel(nn.Module):
         super().__init__()
         
         # Using the TA's exact gdown format with your extracted Drive IDs
+        # https://drive.google.com/file/d/1PBaE1oYrADkH6LMQfaxfUVM2co2VoOwp/view?usp=sharing
+                     # https://drive.google.com/file/d/1PBaE1oYrADkH6LMQfaxfUVM2co2VoOwp/view?usp=sharing
         import gdown
-        gdown.download(id="16MJTJQPXdTv1FJKlU9l-KiqGgRZdfPwP", output=classifier_path, quiet=False)
-        gdown.download(id="1hZsUKQIxvWwmhlvbpfNFfHcuZW8u76Ac", output=localizer_path, quiet=False)
-        gdown.download(id="18LLoiujBfjrT-YW9clt7hmc6_RpJpexp", output=unet_path, quiet=False)
+        gdown.download(id="1qBwaQpxDPeNO5IQjFlE_RAxsij9Un-dS", output=classifier_path, quiet=False)
+        gdown.download(id="1RN-aI-Yb6Hbn8k6QRC7-65WOEiTj3YZk", output=localizer_path, quiet=False)
+        gdown.download(id="1PBaE1oYrADkH6LMQfaxfUVM2co2VoOwp", output=unet_path, quiet=False)
         
         self.shared_encoder = VGG11Encoder(in_channels)
         dummy_classifier = VGG11Classifier(num_breeds, in_channels)
