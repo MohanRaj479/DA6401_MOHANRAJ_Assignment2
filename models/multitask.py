@@ -20,10 +20,6 @@ class MultiTaskPerceptionModel(nn.Module):
             gdown.download(id="1CFkeqv1xPieHEFhHC7ZkRkTQRwgIqrPI", output=classifier_path, quiet=False)
             gdown.download(id="1-V1bwpYNe-ZJ5-YWuNmkgNgabDKykk2B", output=localizer_path, quiet=False)
             gdown.download(id="10UnB9t4bJyqN35OOLy6P5kuTVp8_nJsU", output=unet_path, quiet=False)
-            
-            # gdown.download(id="16MJTJQPXdTv1FJKlU9l-KiqGgRZdfPwP", output=classifier_path, quiet=False)
-            # gdown.download(id="1hZsUKQIxvWwmhlvbpfNFfHcuZW8u76Ac", output=localizer_path, quiet=False)
-            # gdown.download(id="1HOfRw2GL8t0S1DEFyNuKUfYvGMWpJdUg", output=unet_path, quiet=False)
         except Exception:
             pass 
         
@@ -46,21 +42,20 @@ class MultiTaskPerceptionModel(nn.Module):
         safe_load(self.unet_model, unet_path)
 
     def forward(self, x: torch.Tensor):
-        """Clean execution protecting BatchNorm statistics."""
         
         self.classifier_model.eval()
         self.localizer_model.eval()
         self.unet_model.eval()
         
-        # 1. Classification
+        # 1. Classification_pipeline
         class_logits = self.classifier_model(x)
         
-        # 2. Localization 
+        # 2. Localization_pipeline
         loc_preds = self.localizer_model(x)
         if loc_preds.max() <= 2.0:
             loc_preds = loc_preds * 224.0
             
-        # 3. Segmentation
+        # 3. Segmentation_pipeline
         seg_logits = self.unet_model(x)
         
         return {
