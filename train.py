@@ -135,10 +135,8 @@ def train_localization(args, device, train_loader, val_loader):
     model.apply(init_weights) 
     
     criterion_reg = nn.SmoothL1Loss(); criterion_iou = IoULoss(reduction="none")
-    # Use a much smaller learning rate (1e-5 instead of 5e-5)
     optimizer = optim.Adam(model.parameters(), lr=1e-5, weight_decay=1e-4)
 
-# Increase patience from 5 to 15 so it doesn't drop the LR prematurely
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=15)
     best_iou = 0.0; epochs_no_improve = 0
 
@@ -174,7 +172,6 @@ def train_localization(args, device, train_loader, val_loader):
                 val_loss += (criterion_reg(outputs_cxcywh, bboxes_cxcywh) + (50.0 * l_iou)).item()
                 val_iou_loss += l_iou.item()
 
-                # W&B SECTION 2.5: Log 10 Bounding Box images on the first batch of validation
                 if batch_idx == 0:
                     ious_scores = 1.0 - l_iou_batch
                     wandb.log({"Localization_Edge_Cases": draw_bboxes_wandb(images, outputs_xyxy, bboxes_xyxy, ious_scores)}, commit=False)
@@ -187,9 +184,6 @@ def train_localization(args, device, train_loader, val_loader):
         if avg_val_iou > best_iou:
             best_iou = avg_val_iou; epochs_no_improve = 0
             torch.save({"state_dict": model.state_dict()}, "checkpoints/localizer.pth")
-        # else:
-        #     epochs_no_improve += 1
-        #     if epochs_no_improve >= 15: break
     wandb.finish()
 
 # SEGMENTATION
@@ -198,7 +192,6 @@ def train_segmentation(args, device, train_loader, val_loader):
     model = VGG11UNet(num_classes=3, in_channels=3, dropout_p=args.dropout).to(device)
     model.apply(init_weights)
 
-    # W&B SECTION 2.3: Transfer Learning Freeze Modes
     if args.freeze_mode == "frozen":
         for param in model.encoder.parameters():
             param.requires_grad = False
@@ -233,7 +226,6 @@ def train_segmentation(args, device, train_loader, val_loader):
 
                 preds = torch.argmax(outputs, dim=1)
                 
-                # W&B SECTION 2.6: Pixel Accuracy Calculation
                 pixel_acc += (preds == masks).sum().float().item() / masks.numel()
 
                 for c in range(3):
