@@ -17,9 +17,13 @@ class MultiTaskPerceptionModel(nn.Module):
         
         try:
             import gdown
-            gdown.download(id="16MJTJQPXdTv1FJKlU9l-KiqGgRZdfPwP", output=classifier_path, quiet=False)
-            gdown.download(id="1hZsUKQIxvWwmhlvbpfNFfHcuZW8u76Ac", output=localizer_path, quiet=False)
-            gdown.download(id="1HOfRw2GL8t0S1DEFyNuKUfYvGMWpJdUg", output=unet_path, quiet=False)
+            gdown.download(id="1CFkeqv1xPieHEFhHC7ZkRkTQRwgIqrPI", output=classifier_path, quiet=False)
+            gdown.download(id="1-V1bwpYNe-ZJ5-YWuNmkgNgabDKykk2B", output=localizer_path, quiet=False)
+            gdown.download(id="10UnB9t4bJyqN35OOLy6P5kuTVp8_nJsU", output=unet_path, quiet=False)
+            
+            # gdown.download(id="16MJTJQPXdTv1FJKlU9l-KiqGgRZdfPwP", output=classifier_path, quiet=False)
+            # gdown.download(id="1hZsUKQIxvWwmhlvbpfNFfHcuZW8u76Ac", output=localizer_path, quiet=False)
+            # gdown.download(id="1HOfRw2GL8t0S1DEFyNuKUfYvGMWpJdUg", output=unet_path, quiet=False)
         except Exception:
             pass 
         
