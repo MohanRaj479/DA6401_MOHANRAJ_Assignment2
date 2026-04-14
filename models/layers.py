@@ -19,12 +19,9 @@ class CustomDropout(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass for the CustomDropout layer."""
-        # Act as identity function during evaluation or if p is 0
         if not self.training or self.p == 0.0:
             return x
         
-        # Generate binary mask
         mask = (torch.rand_like(x) > self.p).float()
         
-        # Apply mask and scale (Inverted Dropout)
         return x * mask / (1.0 - self.p)
