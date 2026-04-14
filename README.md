@@ -31,7 +31,7 @@ This repository contains a complete multi-task visual perception pipeline, imple
 * **High-Level:** Layer 5 maps show abstract semantic heatmaps (ears, snouts, eyes).
 * **Hierarchy:** Demonstrated a clear transition from localized lines to global pet structures.
 * **Filtering:** Deeper layers successfully ignore background noise to focus on subject identity.
-**Code link:** [2.4 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
+* **Code link:** [2.4 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
 #### 2.5 Object Detection (IoU)
 * **Precision:** Achieved high IoU by integrating coordinate regression with VGG11 features.
 * **Failure Case:** Low-contrast subjects (black pets on dark backgrounds) caused box shifting.
@@ -43,13 +43,13 @@ This repository contains a complete multi-task visual perception pipeline, imple
 * **Dice Utility:** Ignored True Negatives to focus purely on foreground overlap accuracy.
 * **Imbalance:** Proved that Dice is the superior metric for tasks with rare "border" classes.
 * **Optimization:** Dice forces the model to actually find the pet rather than "lazy-predicting" background.
-**Code link:** [2.6 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
+* **Code link:** [2.6 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
 #### 2.7 Pipeline Generalization
 * **In-the-Wild:** Robust localization on internet images despite non-standard poses.
 * **Boundary Sensitivity:** Segmentation masks occasionally bled into complex, cluttered backgrounds.
 * **Semantic Transfer:** High-level breed understanding transferred well to novel data.
 * **Environment:** Pixel-level precision is still sensitive to lighting outside the training distribution.
-**Code link:** [2.7 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
+* **Code link:** [2.7 code snippet] (https://github.com/MohanRaj479/DA6401_MOHANRAJ_Assignment2/blob/main/2.4_2.6_2.7_Base_codes.py) 
 #### 2.8 Meta-Analysis & Reflection
 * **Critical BN:** BatchNorm was the single most important factor for multi-task stability.
 * **Regularization:** $p=0.5$ Dropout was essential to control the 4096-dim classifier head.
