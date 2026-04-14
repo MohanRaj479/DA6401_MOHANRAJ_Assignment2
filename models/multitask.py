@@ -23,7 +23,7 @@ class MultiTaskPerceptionModel(nn.Module):
         import gdown
         gdown.download(id="1qBwaQpxDPeNO5IQjFlE_RAxsij9Un-dS", output=classifier_path, quiet=False)
         gdown.download(id="1RN-aI-Yb6Hbn8k6QRC7-65WOEiTj3YZk", output=localizer_path, quiet=False)
-        gdown.download(id="1YcdgH3HK2DNTCEZZjkPRTXhtCdiuzulw", output=unet_path, quiet=False)
+        gdown.download(id="1avFMYF4e3aKArYJe9WnYGCDh3XNehqn0", output=unet_path, quiet=False)
         
         self.shared_encoder = VGG11Encoder(in_channels)
         dummy_classifier = VGG11Classifier(num_breeds, in_channels)
