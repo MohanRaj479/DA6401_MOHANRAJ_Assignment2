@@ -2,7 +2,7 @@
 
 This repository contains a complete multi-task visual perception pipeline, implementing classification, object localization, and semantic segmentation using a shared VGG11 backbone.
 
-**W and B Report Link:** [DA6401_MOHANRAJ_Assignment2](https://wandb.ai/ed21d022-indian-institute-of-technology-madras/DA6401_Assignment%20II_update/reports/Mohanraj_DL_Assignment2_DA6401--VmlldzoxNjUxNTc0Mg)
+**W and B Report Link:** [DA6401_MOHANRAJ_Assignment2](https://api.wandb.ai/links/ed21d022-indian-institute-of-technology-madras/8tqkn0g5)
 
 ---
 
